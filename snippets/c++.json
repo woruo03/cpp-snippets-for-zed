@@ -3,7 +3,7 @@
         "prefix": "main",
         "description": "C++ main function with argc/argv",
         "body": [
-            "int main(int argc, char* argv[]) {  $0",
+            "int main(int argc, char* argv[]) {$0",
             "\treturn 0;",
             "}"
         ]
@@ -12,7 +12,7 @@
         "prefix": "mains",
         "description": "Simple C++ main function",
         "body": [
-            "int main() {  $0",
+            "int main() {$0",
             "\treturn 0;",
             "}"
         ]
@@ -77,7 +77,7 @@
         "prefix": "if",
         "description": "if statement",
         "body": [
-            "if (${1:condition}) {  $0",
+            "if (${1:condition}) {$0",
             "}"
         ]
     },
@@ -95,7 +95,7 @@
         "prefix": "for",
         "description": "Indexed for loop",
         "body": [
-            "for (int ${1:i} = 0; ${1:i} < ${2:n}; ${1:i}++) {  $0",
+            "for (int ${1:i} = 0; ${1:i} < ${2:n}; ${1:i}++) {$0",
             "}"
         ]
     },
@@ -103,7 +103,7 @@
         "prefix": "forr",
         "description": "Reverse indexed for loop",
         "body": [
-            "for (int ${1:i} = ${2:n} - 1; ${1:i} >= 0; ${1:i}--) {  $0",
+            "for (int ${1:i} = ${2:n} - 1; ${1:i} >= 0; ${1:i}--) {$0",
             "}"
         ]
     },
@@ -111,7 +111,7 @@
         "prefix": "fore",
         "description": "Range-based for loop (auto&)",
         "body": [
-            "for (auto& ${1:elem} : ${2:container}) {  $0",
+            "for (auto& ${1:elem} : ${2:container}) {$0",
             "}"
         ]
     },
@@ -119,7 +119,7 @@
         "prefix": "forec",
         "description": "Range-based for loop (const auto&)",
         "body": [
-            "for (const auto& ${1:elem} : ${2:container}) {  $0",
+            "for (const auto& ${1:elem} : ${2:container}) {$0",
             "}"
         ]
     },
@@ -127,7 +127,7 @@
         "prefix": "while",
         "description": "while loop",
         "body": [
-            "while (${1:condition}) {  $0",
+            "while (${1:condition}) {$0",
             "}"
         ]
     },
@@ -164,7 +164,7 @@
         "prefix": "fn",
         "description": "C++ function definition",
         "body": [
-            "${1:void} ${2:name}(${3}) {  $0",
+            "${1:void} ${2:name}(${3}) {$0",
             "}"
         ]
     },
@@ -172,7 +172,7 @@
         "prefix": "lam",
         "description": "Lambda expression",
         "body": [
-            "[${1:captures}](${2:params}) {  $0",
+            "[${1:captures}](${2:params}) {$0",
             "}"
         ]
     },
@@ -180,7 +180,7 @@
         "prefix": "alam",
         "description": "Lambda assigned to an auto variable",
         "body": [
-            "auto ${1:fn} = [${2:captures}](${3:params}) {  $0",
+            "auto ${1:fn} = [${2:captures}](${3:params}) {$0",
             "};"
         ]
     },
@@ -201,7 +201,7 @@
         "prefix": "struct",
         "description": "Struct definition",
         "body": [
-            "struct ${1:Name} {  $0",
+            "struct ${1:Name} {$0",
             "};"
         ]
     },
@@ -218,7 +218,7 @@
         "prefix": "ctor",
         "description": "Constructor with member-initializer list",
         "body": [
-            "${1:ClassName}(${2:params}) : ${3:member_}{${4:value}} {  $0",
+            "${1:ClassName}(${2:params}) : ${3:member_}{${4:value}} {$0",
             "}"
         ]
     },
@@ -226,7 +226,7 @@
         "prefix": "dtor",
         "description": "Destructor definition",
         "body": [
-            "~${1:ClassName}() {  $0",
+            "~${1:ClassName}() {$0",
             "}"
         ]
     },
@@ -234,7 +234,7 @@
         "prefix": "cctor",
         "description": "Copy constructor",
         "body": [
-            "${1:ClassName}(const ${1:ClassName}& ${2:other}) {  $0",
+            "${1:ClassName}(const ${1:ClassName}& ${2:other}) {$0",
             "}"
         ]
     },
@@ -242,7 +242,7 @@
         "prefix": "mctor",
         "description": "Move constructor",
         "body": [
-            "${1:ClassName}(${1:ClassName}&& ${2:other}) noexcept {  $0",
+            "${1:ClassName}(${1:ClassName}&& ${2:other}) noexcept {$0",
             "}"
         ]
     },
@@ -251,7 +251,7 @@
         "description": "Copy assignment operator (operator=)",
         "body": [
             "${1:ClassName}& operator=(const ${1:ClassName}& ${2:other}) {",
-            "\tif (this != &${2:other}) {  $0",
+            "\tif (this != &${2:other}) {$0",
             "\t}",
             "\treturn *this;",
             "}"
@@ -262,7 +262,7 @@
         "description": "Move assignment operator (operator=)",
         "body": [
             "${1:ClassName}& operator=(${1:ClassName}&& ${2:other}) noexcept {",
-            "\tif (this != &${2:other}) {  $0",
+            "\tif (this != &${2:other}) {$0",
             "\t}",
             "\treturn *this;",
             "}"
@@ -291,7 +291,7 @@
         "prefix": "virt",
         "description": "Virtual override method",
         "body": [
-            "virtual ${1:void} ${2:method}(${3}) override {  $0",
+            "virtual ${1:void} ${2:method}(${3}) override {$0",
             "}"
         ]
     },
@@ -307,7 +307,7 @@
         "description": "Template function definition",
         "body": [
             "template <typename ${1:T}>",
-            "${2:auto} ${3:name}(${4:${1:T} ${5:arg}}) {  $0",
+            "${2:auto} ${3:name}(${4:${1:T} ${5:arg}}) {$0",
             "}"
         ]
     },
@@ -450,7 +450,7 @@
         "prefix": "catch",
         "description": "catch block",
         "body": [
-            "catch (const ${1:std::exception}& ${2:e}) {  $0",
+            "catch (const ${1:std::exception}& ${2:e}) {$0",
             "}"
         ]
     },
@@ -465,7 +465,7 @@
         "prefix": "ns",
         "description": "namespace block with closing comment",
         "body": [
-            "namespace ${1:name} {  $0",
+            "namespace ${1:name} {$0",
             "",
             "} // namespace ${1:name}"
         ]
@@ -488,7 +488,7 @@
         "prefix": "cxfn",
         "description": "constexpr function definition",
         "body": [
-            "constexpr ${1:auto} ${2:name}(${3}) {  $0",
+            "constexpr ${1:auto} ${2:name}(${3}) {$0",
             "}"
         ]
     },
@@ -518,7 +518,7 @@
         "description": "dynamic_cast with nullptr check",
         "body": [
             "auto* ${1:ptr} = dynamic_cast<${2:Type}*>(${3:expr});",
-            "if (${1:ptr} == nullptr) {  $0",
+            "if (${1:ptr} == nullptr) {$0",
             "}"
         ]
     },
@@ -541,7 +541,7 @@
         "description": "std::find with iterator check",
         "body": [
             "auto ${1:it} = std::find(${2:container}.begin(), ${2:container}.end(), ${3:value});",
-            "if (${1:it} != ${2:container}.end()) {  $0",
+            "if (${1:it} != ${2:container}.end()) {$0",
             "}"
         ]
     },
@@ -550,7 +550,7 @@
         "description": "std::transform with a lambda",
         "body": [
             "std::transform(${1:src}.begin(), ${1:src}.end(), ${2:dst}.begin(),",
-            "\t[](const auto& ${3:elem}) {  $0",
+            "\t[](const auto& ${3:elem}) {$0",
             "\t});"
         ]
     },
