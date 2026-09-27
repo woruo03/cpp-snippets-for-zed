@@ -194,7 +194,7 @@
             "\t~${1:Name}() = default;",
             "",
             "private:",
-            "};  $0"
+            "};$0"
         ]
     },
     "struct": {
@@ -211,7 +211,7 @@
         "body": [
             "enum class ${1:Name} {",
             "\t${2:Value},",
-            "};  $0"
+            "};$0"
         ]
     },
     "constructor": {
@@ -320,7 +320,7 @@
             "public:",
             "",
             "private:",
-            "};  $0"
+            "};$0"
         ]
     },
     "concept": {
