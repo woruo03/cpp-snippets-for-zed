@@ -3,8 +3,7 @@
         "prefix": "main",
         "description": "C++ main function with argc/argv",
         "body": [
-            "int main(int argc, char* argv[]) {",
-            "\t$0",
+            "int main(int argc, char* argv[]) {  $0",
             "\treturn 0;",
             "}"
         ]
@@ -13,8 +12,7 @@
         "prefix": "mains",
         "description": "Simple C++ main function",
         "body": [
-            "int main() {",
-            "\t$0",
+            "int main() {  $0",
             "\treturn 0;",
             "}"
         ]
@@ -79,8 +77,7 @@
         "prefix": "if",
         "description": "if statement",
         "body": [
-            "if (${1:condition}) {",
-            "\t$0",
+            "if (${1:condition}) {  $0",
             "}"
         ]
     },
@@ -88,10 +85,8 @@
         "prefix": "ifelse",
         "description": "if-else block",
         "body": [
-            "if (${1:condition}) {",
-            "\t$2",
-            "} else {",
-            "\t$3",
+            "if (${1:condition}) {  $2",
+            "} else {  $3",
             "}",
             "$0"
         ]
@@ -100,8 +95,7 @@
         "prefix": "for",
         "description": "Indexed for loop",
         "body": [
-            "for (int ${1:i} = 0; ${1:i} < ${2:n}; ${1:i}++) {",
-            "\t$0",
+            "for (int ${1:i} = 0; ${1:i} < ${2:n}; ${1:i}++) {  $0",
             "}"
         ]
     },
@@ -109,8 +103,7 @@
         "prefix": "forr",
         "description": "Reverse indexed for loop",
         "body": [
-            "for (int ${1:i} = ${2:n} - 1; ${1:i} >= 0; ${1:i}--) {",
-            "\t$0",
+            "for (int ${1:i} = ${2:n} - 1; ${1:i} >= 0; ${1:i}--) {  $0",
             "}"
         ]
     },
@@ -118,8 +111,7 @@
         "prefix": "fore",
         "description": "Range-based for loop (auto&)",
         "body": [
-            "for (auto& ${1:elem} : ${2:container}) {",
-            "\t$0",
+            "for (auto& ${1:elem} : ${2:container}) {  $0",
             "}"
         ]
     },
@@ -127,8 +119,7 @@
         "prefix": "forec",
         "description": "Range-based for loop (const auto&)",
         "body": [
-            "for (const auto& ${1:elem} : ${2:container}) {",
-            "\t$0",
+            "for (const auto& ${1:elem} : ${2:container}) {  $0",
             "}"
         ]
     },
@@ -136,8 +127,7 @@
         "prefix": "while",
         "description": "while loop",
         "body": [
-            "while (${1:condition}) {",
-            "\t$0",
+            "while (${1:condition}) {  $0",
             "}"
         ]
     },
@@ -145,8 +135,7 @@
         "prefix": "dowhile",
         "description": "do-while loop",
         "body": [
-            "do {",
-            "\t$1",
+            "do {  $1",
             "} while (${2:condition});",
             "$0"
         ]
@@ -156,8 +145,7 @@
         "description": "switch statement with default",
         "body": [
             "switch (${1:expr}) {",
-            "case ${2:value}:",
-            "\t$0",
+            "case ${2:value}:  $0",
             "\tbreak;",
             "default:",
             "\tbreak;",
@@ -168,8 +156,7 @@
         "prefix": "case",
         "description": "switch case with break",
         "body": [
-            "case ${1:value}:",
-            "\t$0",
+            "case ${1:value}:  $0",
             "\tbreak;"
         ]
     },
@@ -177,8 +164,7 @@
         "prefix": "fn",
         "description": "C++ function definition",
         "body": [
-            "${1:void} ${2:name}(${3}) {",
-            "\t$0",
+            "${1:void} ${2:name}(${3}) {  $0",
             "}"
         ]
     },
@@ -186,8 +172,7 @@
         "prefix": "lam",
         "description": "Lambda expression",
         "body": [
-            "[${1:captures}](${2:params}) {",
-            "\t$0",
+            "[${1:captures}](${2:params}) {  $0",
             "}"
         ]
     },
@@ -195,8 +180,7 @@
         "prefix": "alam",
         "description": "Lambda assigned to an auto variable",
         "body": [
-            "auto ${1:fn} = [${2:captures}](${3:params}) {",
-            "\t$0",
+            "auto ${1:fn} = [${2:captures}](${3:params}) {  $0",
             "};"
         ]
     },
@@ -209,18 +193,15 @@
             "\t${1:Name}() = default;",
             "\t~${1:Name}() = default;",
             "",
-            "\t$0",
-            "",
             "private:",
-            "};"
+            "};  $0"
         ]
     },
     "struct": {
         "prefix": "struct",
         "description": "Struct definition",
         "body": [
-            "struct ${1:Name} {",
-            "\t$0",
+            "struct ${1:Name} {  $0",
             "};"
         ]
     },
@@ -230,16 +211,14 @@
         "body": [
             "enum class ${1:Name} {",
             "\t${2:Value},",
-            "\t$0",
-            "};"
+            "};  $0"
         ]
     },
     "constructor": {
         "prefix": "ctor",
         "description": "Constructor with member-initializer list",
         "body": [
-            "${1:ClassName}(${2:params}) : ${3:member_}{${4:value}} {",
-            "\t$0",
+            "${1:ClassName}(${2:params}) : ${3:member_}{${4:value}} {  $0",
             "}"
         ]
     },
@@ -247,8 +226,7 @@
         "prefix": "dtor",
         "description": "Destructor definition",
         "body": [
-            "~${1:ClassName}() {",
-            "\t$0",
+            "~${1:ClassName}() {  $0",
             "}"
         ]
     },
@@ -256,8 +234,7 @@
         "prefix": "cctor",
         "description": "Copy constructor",
         "body": [
-            "${1:ClassName}(const ${1:ClassName}& ${2:other}) {",
-            "\t$0",
+            "${1:ClassName}(const ${1:ClassName}& ${2:other}) {  $0",
             "}"
         ]
     },
@@ -265,8 +242,7 @@
         "prefix": "mctor",
         "description": "Move constructor",
         "body": [
-            "${1:ClassName}(${1:ClassName}&& ${2:other}) noexcept {",
-            "\t$0",
+            "${1:ClassName}(${1:ClassName}&& ${2:other}) noexcept {  $0",
             "}"
         ]
     },
@@ -275,8 +251,7 @@
         "description": "Copy assignment operator (operator=)",
         "body": [
             "${1:ClassName}& operator=(const ${1:ClassName}& ${2:other}) {",
-            "\tif (this != &${2:other}) {",
-            "\t\t$0",
+            "\tif (this != &${2:other}) {  $0",
             "\t}",
             "\treturn *this;",
             "}"
@@ -287,8 +262,7 @@
         "description": "Move assignment operator (operator=)",
         "body": [
             "${1:ClassName}& operator=(${1:ClassName}&& ${2:other}) noexcept {",
-            "\tif (this != &${2:other}) {",
-            "\t\t$0",
+            "\tif (this != &${2:other}) {  $0",
             "\t}",
             "\treturn *this;",
             "}"
@@ -317,8 +291,7 @@
         "prefix": "virt",
         "description": "Virtual override method",
         "body": [
-            "virtual ${1:void} ${2:method}(${3}) override {",
-            "\t$0",
+            "virtual ${1:void} ${2:method}(${3}) override {  $0",
             "}"
         ]
     },
@@ -334,8 +307,7 @@
         "description": "Template function definition",
         "body": [
             "template <typename ${1:T}>",
-            "${2:auto} ${3:name}(${4:${1:T} ${5:arg}}) {",
-            "\t$0",
+            "${2:auto} ${3:name}(${4:${1:T} ${5:arg}}) {  $0",
             "}"
         ]
     },
@@ -346,10 +318,9 @@
             "template <typename ${1:T}>",
             "class ${2:Name} {",
             "public:",
-            "\t$0",
             "",
             "private:",
-            "};"
+            "};  $0"
         ]
     },
     "concept": {
@@ -469,10 +440,8 @@
         "prefix": "try",
         "description": "try-catch block",
         "body": [
-            "try {",
-            "\t$1",
-            "} catch (const ${2:std::exception}& ${3:e}) {",
-            "\t${4:std::cerr << ${3:e}.what() << '\\n';}",
+            "try {  $1",
+            "} catch (const ${2:std::exception}& ${3:e}) {  $4",
             "}",
             "$0"
         ]
@@ -481,8 +450,7 @@
         "prefix": "catch",
         "description": "catch block",
         "body": [
-            "catch (const ${1:std::exception}& ${2:e}) {",
-            "\t$0",
+            "catch (const ${1:std::exception}& ${2:e}) {  $0",
             "}"
         ]
     },
@@ -497,9 +465,7 @@
         "prefix": "ns",
         "description": "namespace block with closing comment",
         "body": [
-            "namespace ${1:name} {",
-            "",
-            "$0",
+            "namespace ${1:name} {  $0",
             "",
             "} // namespace ${1:name}"
         ]
@@ -522,8 +488,7 @@
         "prefix": "cxfn",
         "description": "constexpr function definition",
         "body": [
-            "constexpr ${1:auto} ${2:name}(${3}) {",
-            "\t$0",
+            "constexpr ${1:auto} ${2:name}(${3}) {  $0",
             "}"
         ]
     },
@@ -553,8 +518,7 @@
         "description": "dynamic_cast with nullptr check",
         "body": [
             "auto* ${1:ptr} = dynamic_cast<${2:Type}*>(${3:expr});",
-            "if (${1:ptr} == nullptr) {",
-            "\t$0",
+            "if (${1:ptr} == nullptr) {  $0",
             "}"
         ]
     },
@@ -577,8 +541,7 @@
         "description": "std::find with iterator check",
         "body": [
             "auto ${1:it} = std::find(${2:container}.begin(), ${2:container}.end(), ${3:value});",
-            "if (${1:it} != ${2:container}.end()) {",
-            "\t$0",
+            "if (${1:it} != ${2:container}.end()) {  $0",
             "}"
         ]
     },
@@ -587,8 +550,7 @@
         "description": "std::transform with a lambda",
         "body": [
             "std::transform(${1:src}.begin(), ${1:src}.end(), ${2:dst}.begin(),",
-            "\t[](const auto& ${3:elem}) {",
-            "\t\treturn $0;",
+            "\t[](const auto& ${3:elem}) {  $0",
             "\t});"
         ]
     },
