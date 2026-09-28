@@ -20,7 +20,7 @@
 
 | Prefix  | Description                                                         |
 | ------- | ------------------------------------------------------------------- |
-| `inc`   | `#include <...>` system header with placeholder                     |
+| `inc`   | `#include <...>` system header                                      |
 | `incl`  | `#include "..."` local header                                       |
 | `once`  | `#pragma once` header guard                                         |
 | `guard` | `#ifndef` / `#define` / `#endif` header guard (linked placeholders) |

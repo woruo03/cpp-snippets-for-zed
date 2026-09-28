@@ -21,16 +21,16 @@
     },
     "include system header": {
         "prefix": "inc",
-        "description": "Include a system header with placeholder",
+        "description": "Include a system header",
         "body": [
-            "#include <${1:iostream}>$0"
+            "#include <$1>$0"
         ]
     },
     "include local header": {
         "prefix": "incl",
         "description": "Include a local header",
         "body": [
-            "#include \"${1:header.hpp}\"$0"
+            "#include \"$1\"$0"
         ]
     },
     "pragma once": {
