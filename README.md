@@ -26,6 +26,7 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 | Prefix    | Description                                                         |
 | --------- | ------------------------------------------------------------------- |
 | `inc`     | `#include <...>` with placeholder                                   |
+| `include` | `#include <...>` with placeholder (alias)                           |
 | `incs`    | `#include <iostream>` system header                                 |
 | `incl`    | `#include "..."` local header                                       |
 | `once`    | `#pragma once` header guard                                         |
@@ -60,27 +61,36 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 | `lam`  | Lambda expression                     |
 | `alam` | Lambda assigned to an `auto` variable |
 
-### Classes & OOP
+### Classes & Structs (Rule of Zero / Five / Move-Only)
 
-| Prefix   | Description                                                    |
-| -------- | -------------------------------------------------------------- |
-| `class`  | Class definition with `public` / `private` sections            |
-| `struct` | Struct definition                                              |
-| `enum`   | Scoped `enum class` definition                                 |
-| `ctor`   | Constructor with member-initializer list                       |
-| `dtor`   | Destructor                                                     |
-| `vdtor`  | Virtual destructor for base classes                            |
-| `cctor`  | Copy constructor                                               |
-| `mctor`  | Move constructor (`noexcept`)                                  |
-| `casgn`  | Copy assignment `operator=`                                    |
-| `masgn`  | Move assignment `operator=` (`noexcept`)                       |
-| `rule3`  | Rule of three — destructor, copy constructor, copy assignment  |
-| `rule5`  | Rule of five — all five special members explicitly `= default` |
-| `nocopy` | Non-copyable — `delete` copy constructor and copy assignment   |
-| `nomove` | Non-movable — `delete` move constructor and move assignment     |
-| `virt`   | `virtual` method declaration in base class                     |
-| `ov`     | `override` method definition in derived class                  |
-| `pv`     | Pure `virtual` method declaration (`= 0`)                      |
+| Prefix        | Description                                                             |
+| ------------- | ----------------------------------------------------------------------- |
+| `class`       | Class definition following **Rule of Zero**                             |
+| `class5`      | Class definition following **Rule of Five/Six** (explicit special members) |
+| `classm`      | Move-only class definition (`delete` copy, `= default` move)            |
+| `classi`      | Abstract interface class with virtual destructor and pure virtual method|
+| `struct`      | Struct definition (plain aggregate / Rule of Zero)                      |
+| `struct5`     | Struct definition following **Rule of Five** (explicit special members) |
+| `structm`     | Move-only struct definition (`delete` copy, `= default` move)           |
+| `struct_cmp`  | Comparator struct for STL containers and algorithms                     |
+| `struct_hash` | Hash struct for custom types in unordered containers                    |
+| `enum`        | Scoped `enum class` definition                                          |
+| `ctor`        | Constructor with member-initializer list                                |
+| `dtor`        | Destructor definition                                                   |
+| `vdtor`       | Virtual destructor definition for base classes                          |
+| `cctor`       | Copy constructor                                                        |
+| `mctor`       | Move constructor (`noexcept`)                                           |
+| `casgn`       | Copy assignment `operator=`                                             |
+| `masgn`       | Move assignment `operator=` (`noexcept`)                                |
+| `rule3`       | Rule of three with default constructor                                  |
+| `rule5`       | Rule of five/six with default constructor                               |
+| `nocopy`      | Non-copyable — `delete` copy constructor and copy assignment            |
+| `nomove`      | Non-movable — `delete` move constructor and move assignment              |
+| `moveonly`    | Move-only member declarations (`delete` copy, `= default` move)          |
+| `swap`        | Friend `swap` function for Copy-and-Swap idiom                          |
+| `virt`        | `virtual` method declaration in base class                              |
+| `ov`          | `override` method definition in derived class                           |
+| `pv`          | Pure `virtual` method declaration (`= 0`)                               |
 
 ### Templates & Concepts
 
@@ -88,18 +98,19 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 | ---------- | ---------------------------------- |
 | `tfn`      | Template function                  |
 | `tcls`     | Template class                     |
+| `tstruct`  | Template struct                    |
 | `concept`  | C++20 `concept` definition         |
 | `requires` | C++20 `requires` expression clause |
 
 ### Smart Pointers
 
-| Prefix  | Description                                 |
-| ------- | ------------------------------------------- |
-| `uptr`  | `std::make_unique<T>(...)` → `auto`         |
-| `uptrd` | `std::unique_ptr<T>` declaration           |
-| `sptr`  | `std::make_shared<T>(...)` → `auto`         |
-| `sptrd` | `std::shared_ptr<T>` declaration           |
-| `wptr`  | `std::weak_ptr<T>` from a shared_ptr        |
+| Prefix  | Description                          |
+| ------- | ------------------------------------ |
+| `uptr`  | `std::make_unique<T>(...)` → `auto`  |
+| `uptrd` | `std::unique_ptr<T>` declaration     |
+| `sptr`  | `std::make_shared<T>(...)` → `auto`  |
+| `sptrd` | `std::shared_ptr<T>` declaration     |
+| `wptr`  | `std::weak_ptr<T>` from a shared_ptr |
 
 ### STL Containers & Views
 
@@ -138,15 +149,17 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 
 ### Concurrency & Multi-threading
 
-| Prefix    | Description                                   |
-| --------- | --------------------------------------------- |
-| `thread`  | `std::thread` definition                      |
-| `jthread` | `std::jthread` auto-joining thread (C++20)    |
-| `lock`    | `std::scoped_lock` RAII multi-lock (C++17)    |
-| `ulock`   | `std::unique_lock<std::mutex>`                |
-| `mtx`     | `std::mutex` declaration                      |
-| `atomic`  | `std::atomic<T>` declaration                  |
-| `cv`      | `std::condition_variable` declaration         |
+| Prefix    | Description                                          |
+| --------- | ---------------------------------------------------- |
+| `thread`  | `std::thread` definition                             |
+| `jthread` | `std::jthread` auto-joining thread (C++20)           |
+| `lock`    | `std::scoped_lock` RAII multi-lock (C++17)           |
+| `slock`   | `std::shared_lock` for `std::shared_mutex` (C++17)   |
+| `ulock`   | `std::unique_lock<std::mutex>`                       |
+| `mtx`     | `std::mutex` declaration                             |
+| `smtx`    | `std::shared_mutex` declaration (C++17)              |
+| `atomic`  | `std::atomic<T>` declaration                         |
+| `cv`      | `std::condition_variable` declaration                |
 
 ### Error Handling
 
@@ -175,27 +188,27 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 
 ### Casts
 
-| Prefix  | Description                                 |
-| ------- | ------------------------------------------- |
-| `scast` | `static_cast<T>(expr)`                      |
-| `dcast` | `dynamic_cast<T*>(expr)` with nullptr check |
-| `rcast` | `reinterpret_cast<T>(expr)`                 |
-| `ccast` | `const_cast<T>(expr)`                       |
+| Prefix  | Description                                              |
+| ------- | -------------------------------------------------------- |
+| `scast` | `static_cast<T>(expr)`                                   |
+| `dcast` | `if (auto* ptr = dynamic_cast<T*>(expr))` with scoped check |
+| `rcast` | `reinterpret_cast<T>(expr)`                              |
+| `ccast` | `const_cast<T>(expr)`                                    |
 
 ### Algorithms & Utilities
 
-| Prefix        | Description                                           |
-| ------------- | ----------------------------------------------------- |
-| `sort`        | `std::sort` on a container                            |
-| `rsort`       | `std::ranges::sort` on a container (C++20)            |
-| `find`        | `std::find` with iterator check                       |
-| `rfind`       | `std::ranges::find` with iterator check (C++20)       |
-| `transform`   | `std::transform` with a lambda and return             |
-| `sbd`         | Structured binding `auto [a, b] = ...` (C++17)        |
-| `move`        | `std::move(var)` cast                                 |
-| `fwd`         | `std::forward<T>(arg)` perfect forwarding             |
-| `timeit`      | Duration timing block with `std::chrono`              |
-| `overloaded`  | Overloaded lambda visitor pattern for `std::visit`    |
+| Prefix       | Description                                        |
+| ------------ | -------------------------------------------------- |
+| `sort`       | `std::sort` on a container                         |
+| `rsort`      | `std::ranges::sort` on a container (C++20)         |
+| `find`       | `std::find` with iterator check                    |
+| `rfind`      | `std::ranges::find` with iterator check (C++20)    |
+| `transform`  | `std::transform` with a lambda and return          |
+| `sbd`        | Structured binding `auto [a, b] = ...` (C++17)     |
+| `move`       | `std::move(var)` cast                              |
+| `fwd`        | `std::forward<T>(arg)` perfect forwarding          |
+| `timeit`     | Duration timing block with `std::chrono`           |
+| `overloaded` | Overloaded lambda visitor pattern for `std::visit` |
 
 ## Recommend
 

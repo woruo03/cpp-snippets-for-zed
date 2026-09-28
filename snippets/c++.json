@@ -4,8 +4,8 @@
         "description": "C++ main function with argc/argv",
         "body": [
             "int main(int argc, char* argv[]) {",
-            "   $0",
-            "   return 0;",
+            "    $0",
+            "    return 0;",
             "}"
         ]
     },
@@ -21,6 +21,13 @@
     },
     "include header": {
         "prefix": "inc",
+        "description": "Include a system header with placeholder",
+        "body": [
+            "#include <${1:iostream}>$0"
+        ]
+    },
+    "include system header alias": {
+        "prefix": "include",
         "description": "Include a system header with placeholder",
         "body": [
             "#include <${1:iostream}>$0"
@@ -237,16 +244,66 @@
     },
     "class": {
         "prefix": "class",
-        "description": "Class definition with public/private sections",
+        "description": "Class definition following Rule of Zero",
+        "body": [
+            "class ${1:Name} {",
+            "public:",
+            "    ${1:Name}() = default;",
+            "",
+            "    $0",
+            "",
+            "private:",
+            "};"
+        ]
+    },
+    "class rule of five": {
+        "prefix": "class5",
+        "description": "Class definition following Rule of Five with explicit special members",
         "body": [
             "class ${1:Name} {",
             "public:",
             "    ${1:Name}() = default;",
             "    ~${1:Name}() = default;",
+            "    ${1:Name}(const ${1:Name}&) = default;",
+            "    ${1:Name}& operator=(const ${1:Name}&) = default;",
+            "    ${1:Name}(${1:Name}&&) noexcept = default;",
+            "    ${1:Name}& operator=(${1:Name}&&) noexcept = default;",
             "",
             "    $0",
             "",
             "private:",
+            "};"
+        ]
+    },
+    "class move-only": {
+        "prefix": "classm",
+        "description": "Move-only class definition (deleted copy, defaulted move)",
+        "body": [
+            "class ${1:Name} {",
+            "public:",
+            "    ${1:Name}() = default;",
+            "    ~${1:Name}() = default;",
+            "    ${1:Name}(const ${1:Name}&) = delete;",
+            "    ${1:Name}& operator=(const ${1:Name}&) = delete;",
+            "    ${1:Name}(${1:Name}&&) noexcept = default;",
+            "    ${1:Name}& operator=(${1:Name}&&) noexcept = default;",
+            "",
+            "    $0",
+            "",
+            "private:",
+            "};"
+        ]
+    },
+    "interface class": {
+        "prefix": "classi",
+        "description": "Abstract interface class with virtual destructor and pure virtual method",
+        "body": [
+            "class ${1:IInterface} {",
+            "public:",
+            "    virtual ~${1:IInterface}() = default;",
+            "",
+            "    virtual ${2:void} ${3:method}(${4:args}) = 0;",
+            "    $0",
             "};"
         ]
     },
@@ -256,6 +313,70 @@
         "body": [
             "struct ${1:Name} {",
             "    $0",
+            "};"
+        ]
+    },
+    "struct rule of five": {
+        "prefix": "struct5",
+        "description": "Struct definition following Rule of Five with explicit special members",
+        "body": [
+            "struct ${1:Name} {",
+            "    ${1:Name}() = default;",
+            "    ~${1:Name}() = default;",
+            "    ${1:Name}(const ${1:Name}&) = default;",
+            "    ${1:Name}& operator=(const ${1:Name}&) = default;",
+            "    ${1:Name}(${1:Name}&&) noexcept = default;",
+            "    ${1:Name}& operator=(${1:Name}&&) noexcept = default;",
+            "",
+            "    $0",
+            "};"
+        ]
+    },
+    "struct move-only": {
+        "prefix": "structm",
+        "description": "Move-only struct definition (deleted copy, defaulted move)",
+        "body": [
+            "struct ${1:Name} {",
+            "    ${1:Name}() = default;",
+            "    ~${1:Name}() = default;",
+            "    ${1:Name}(const ${1:Name}&) = delete;",
+            "    ${1:Name}& operator=(const ${1:Name}&) = delete;",
+            "    ${1:Name}(${1:Name}&&) noexcept = default;",
+            "    ${1:Name}& operator=(${1:Name}&&) noexcept = default;",
+            "",
+            "    $0",
+            "};"
+        ]
+    },
+    "template struct": {
+        "prefix": "tstruct",
+        "description": "Template struct definition",
+        "body": [
+            "template <typename ${1:T}>",
+            "struct ${2:Name} {",
+            "    $0",
+            "};"
+        ]
+    },
+    "struct comparator": {
+        "prefix": "struct_cmp",
+        "description": "Comparator struct for STL containers and algorithms",
+        "body": [
+            "struct ${1:Compare} {",
+            "    bool operator()(const ${2:Type}& a, const ${2:Type}& b) const {",
+            "        return $0;",
+            "    }",
+            "};"
+        ]
+    },
+    "struct hash": {
+        "prefix": "struct_hash",
+        "description": "Hash struct for custom types in unordered containers",
+        "body": [
+            "struct ${1:Hash} {",
+            "    std::size_t operator()(const ${2:Type}& ${3:item}) const noexcept {",
+            "        return $0;",
+            "    }",
             "};"
         ]
     },
@@ -339,6 +460,7 @@
         "prefix": "rule3",
         "description": "Rule of three: destructor, copy constructor, and copy assignment",
         "body": [
+            "${1:ClassName}() = default;",
             "~${1:ClassName}() = default;",
             "${1:ClassName}(const ${1:ClassName}&) = default;",
             "${1:ClassName}& operator=(const ${1:ClassName}&) = default;"
@@ -348,6 +470,7 @@
         "prefix": "rule5",
         "description": "Rule of five: all five special members explicitly defaulted",
         "body": [
+            "${1:ClassName}() = default;",
             "~${1:ClassName}() = default;",
             "${1:ClassName}(const ${1:ClassName}&) = default;",
             "${1:ClassName}& operator=(const ${1:ClassName}&) = default;",
@@ -369,6 +492,26 @@
         "body": [
             "${1:ClassName}(${1:ClassName}&&) = delete;",
             "${1:ClassName}& operator=(${1:ClassName}&&) = delete;"
+        ]
+    },
+    "move-only member controls": {
+        "prefix": "moveonly",
+        "description": "Move-only member declarations (delete copy, default move)",
+        "body": [
+            "${1:ClassName}(const ${1:ClassName}&) = delete;",
+            "${1:ClassName}& operator=(const ${1:ClassName}&) = delete;",
+            "${1:ClassName}(${1:ClassName}&&) noexcept = default;",
+            "${1:ClassName}& operator=(${1:ClassName}&&) noexcept = default;"
+        ]
+    },
+    "friend swap": {
+        "prefix": "swap",
+        "description": "Friend swap function for Copy-and-Swap idiom",
+        "body": [
+            "friend void swap(${1:ClassName}& ${2:first}, ${1:ClassName}& ${3:second}) noexcept {",
+            "    using std::swap;",
+            "    swap(${2:first}.${4:member_}, ${3:second}.${4:member_});$0",
+            "}"
         ]
     },
     "virtual method": {
@@ -411,6 +554,8 @@
             "template <typename ${1:T}>",
             "class ${2:Name} {",
             "public:",
+            "    ${2:Name}() = default;",
+            "",
             "    $0",
             "",
             "private:",
@@ -670,6 +815,13 @@
             "std::scoped_lock ${1:lock}(${2:mtx});$0"
         ]
     },
+    "shared_lock": {
+        "prefix": "slock",
+        "description": "std::shared_lock for read locking std::shared_mutex (C++17)",
+        "body": [
+            "std::shared_lock ${1:lock}(${2:smtx});$0"
+        ]
+    },
     "unique_lock": {
         "prefix": "ulock",
         "description": "std::unique_lock for std::mutex",
@@ -682,6 +834,13 @@
         "description": "std::mutex declaration",
         "body": [
             "std::mutex ${1:mtx_};$0"
+        ]
+    },
+    "shared_mutex": {
+        "prefix": "smtx",
+        "description": "std::shared_mutex declaration (C++17)",
+        "body": [
+            "std::shared_mutex ${1:smtx_};$0"
         ]
     },
     "atomic": {
@@ -790,10 +949,9 @@
     },
     "dynamic_cast": {
         "prefix": "dcast",
-        "description": "dynamic_cast with nullptr check",
+        "description": "dynamic_cast with scoped if condition",
         "body": [
-            "auto* ${1:ptr} = dynamic_cast<${2:Type}*>(${3:expr});",
-            "if (${1:ptr} == nullptr) {",
+            "if (auto* ${1:ptr} = dynamic_cast<${2:Type}*>(${3:expr})) {",
             "    $0",
             "}"
         ]
