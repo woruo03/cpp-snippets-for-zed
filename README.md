@@ -94,13 +94,23 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 
 ### Templates & Concepts
 
-| Prefix     | Description                        |
-| ---------- | ---------------------------------- |
-| `tfn`      | Template function                  |
-| `tcls`     | Template class                     |
-| `tstruct`  | Template struct                    |
-| `concept`  | C++20 `concept` definition         |
-| `requires` | C++20 `requires` expression clause |
+| Prefix         | Description                                                           |
+| -------------- | --------------------------------------------------------------------- |
+| `tfn`          | Template function                                                     |
+| `tclass`       | Template class (Rule of Zero)                                         |
+| `tclass5`      | Template class following **Rule of Five** (explicit special members)  |
+| `tclassm`      | Template move-only class definition (`delete` copy, `= default` move)  |
+| `tclass_req`   | Template class with C++20 `requires` concept constraint               |
+| `tclass_spec`  | Full template class specialization                                    |
+| `tstruct`      | Template struct (Rule of Zero)                                        |
+| `tstruct5`     | Template struct following **Rule of Five** (explicit special members) |
+| `tstructm`     | Template move-only struct definition (`delete` copy, `= default` move) |
+| `tstruct_req`  | Template struct with C++20 `requires` concept constraint              |
+| `tstruct_spec` | Template struct specialization (e.g. type traits)                     |
+| `thash`        | Specialization of `std::hash<T>` for custom types                     |
+| `tfmt`         | Specialization of `std::formatter<T>` for `std::format` (C++20)       |
+| `concept`      | C++20 `concept` definition                                            |
+| `requires`     | C++20 `requires` expression clause                                    |
 
 ### Smart Pointers
 

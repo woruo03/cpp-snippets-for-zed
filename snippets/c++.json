@@ -358,6 +358,85 @@
             "};"
         ]
     },
+    "template struct rule of five": {
+        "prefix": "tstruct5",
+        "description": "Template struct following Rule of Five with explicit special members",
+        "body": [
+            "template <typename ${1:T}>",
+            "struct ${2:Name} {",
+            "    ${2:Name}() = default;",
+            "    ~${2:Name}() = default;",
+            "    ${2:Name}(const ${2:Name}&) = default;",
+            "    ${2:Name}& operator=(const ${2:Name}&) = default;",
+            "    ${2:Name}(${2:Name}&&) noexcept = default;",
+            "    ${2:Name}& operator=(${2:Name}&&) noexcept = default;",
+            "",
+            "    $0",
+            "};"
+        ]
+    },
+    "template struct move-only": {
+        "prefix": "tstructm",
+        "description": "Template move-only struct definition (deleted copy, defaulted move)",
+        "body": [
+            "template <typename ${1:T}>",
+            "struct ${2:Name} {",
+            "    ${2:Name}() = default;",
+            "    ~${2:Name}() = default;",
+            "    ${2:Name}(const ${2:Name}&) = delete;",
+            "    ${2:Name}& operator=(const ${2:Name}&) = delete;",
+            "    ${2:Name}(${2:Name}&&) noexcept = default;",
+            "    ${2:Name}& operator=(${2:Name}&&) noexcept = default;",
+            "",
+            "    $0",
+            "};"
+        ]
+    },
+    "template struct with requires": {
+        "prefix": "tstruct_req",
+        "description": "Template struct with C++20 requires concept constraint",
+        "body": [
+            "template <typename ${1:T}>",
+            "    requires ${2:std::integral<${1:T}>}",
+            "struct ${3:Name} {",
+            "    $0",
+            "};"
+        ]
+    },
+    "template struct specialization": {
+        "prefix": "tstruct_spec",
+        "description": "Template struct specialization (e.g. type traits)",
+        "body": [
+            "template <>",
+            "struct ${1:Name}<${2:Type}> {",
+            "    $0",
+            "};"
+        ]
+    },
+    "template hash specialization": {
+        "prefix": "thash",
+        "description": "Specialization of std::hash for custom types",
+        "body": [
+            "template <>",
+            "struct std::hash<${1:Type}> {",
+            "    std::size_t operator()(const ${1:Type}& ${2:item}) const noexcept {",
+            "        return $0;",
+            "    }",
+            "};"
+        ]
+    },
+    "template formatter specialization": {
+        "prefix": "tfmt",
+        "description": "Specialization of std::formatter for std::format / std::println (C++20)",
+        "body": [
+            "template <>",
+            "struct std::formatter<${1:Type}> : std::formatter<std::string_view> {",
+            "    auto format(const ${1:Type}& ${2:item}, std::format_context& ctx) const {",
+            "        return std::formatter<std::string_view>::format($0, ctx);",
+            "    }",
+            "};"
+        ]
+    },
     "struct comparator": {
         "prefix": "struct_cmp",
         "description": "Comparator struct for STL containers and algorithms",
@@ -548,7 +627,7 @@
         ]
     },
     "template class": {
-        "prefix": "tcls",
+        "prefix": "tclass",
         "description": "Template class definition",
         "body": [
             "template <typename ${1:T}>",
@@ -556,6 +635,75 @@
             "public:",
             "    ${2:Name}() = default;",
             "",
+            "    $0",
+            "",
+            "private:",
+            "};"
+        ]
+    },
+    "template class rule of five": {
+        "prefix": "tclass5",
+        "description": "Template class following Rule of Five with explicit special members",
+        "body": [
+            "template <typename ${1:T}>",
+            "class ${2:Name} {",
+            "public:",
+            "    ${2:Name}() = default;",
+            "    ~${2:Name}() = default;",
+            "    ${2:Name}(const ${2:Name}&) = default;",
+            "    ${2:Name}& operator=(const ${2:Name}&) = default;",
+            "    ${2:Name}(${2:Name}&&) noexcept = default;",
+            "    ${2:Name}& operator=(${2:Name}&&) noexcept = default;",
+            "",
+            "    $0",
+            "",
+            "private:",
+            "};"
+        ]
+    },
+    "template class move-only": {
+        "prefix": "tclassm",
+        "description": "Template move-only class definition (deleted copy, defaulted move)",
+        "body": [
+            "template <typename ${1:T}>",
+            "class ${2:Name} {",
+            "public:",
+            "    ${2:Name}() = default;",
+            "    ~${2:Name}() = default;",
+            "    ${2:Name}(const ${2:Name}&) = delete;",
+            "    ${2:Name}& operator=(const ${2:Name}&) = delete;",
+            "    ${2:Name}(${2:Name}&&) noexcept = default;",
+            "    ${2:Name}& operator=(${2:Name}&&) noexcept = default;",
+            "",
+            "    $0",
+            "",
+            "private:",
+            "};"
+        ]
+    },
+    "template class with requires": {
+        "prefix": "tclass_req",
+        "description": "Template class with C++20 requires concept constraint",
+        "body": [
+            "template <typename ${1:T}>",
+            "    requires ${2:std::integral<${1:T}>}",
+            "class ${3:Name} {",
+            "public:",
+            "    ${3:Name}() = default;",
+            "",
+            "    $0",
+            "",
+            "private:",
+            "};"
+        ]
+    },
+    "template class specialization": {
+        "prefix": "tclass_spec",
+        "description": "Full template class specialization",
+        "body": [
+            "template <>",
+            "class ${1:Name}<${2:Type}> {",
+            "public:",
             "    $0",
             "",
             "private:",
