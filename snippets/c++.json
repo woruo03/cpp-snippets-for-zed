@@ -110,7 +110,7 @@
         "prefix": "ifinit",
         "description": "if statement with initialization (C++17)",
         "body": [
-            "if (${1:auto ${2:it} = ${3:expr}}; ${4:condition}) {",
+            "if (auto ${1:it} = ${2:expr}; ${3:condition}) {",
             "    $0",
             "}"
         ]
@@ -483,7 +483,7 @@
         "prefix": "cctor",
         "description": "Copy constructor",
         "body": [
-            "${1:ClassName}(const ${1:ClassName}& ${2:other}) {",
+            "${1:ClassName}(const ${1:ClassName}& ${2:other}) : ${3:member_}{${2:other}.${3:member_}} {",
             "    $0",
             "}"
         ]
@@ -701,7 +701,7 @@
         "description": "C++20 concept definition",
         "body": [
             "template <typename ${1:T}>",
-            "concept ${2:Name} = ${3:std::is_integral_v<${1:T}>};$0"
+            "concept ${2:Name} = ${3:std::integral<${1:T}>};$0"
         ]
     },
     "requires clause": {
@@ -710,7 +710,7 @@
         "body": [
             "requires (${1:params}) {",
             "    $0",
-            "};"
+            "}"
         ]
     },
     "unique_ptr make": {
@@ -929,15 +929,16 @@
         "description": "std::thread definition with lambda",
         "body": [
             "std::thread ${1:t}([${2:&}]() {",
-            "    $0",
-            "});"
+            "    $3",
+            "});",
+            "${1:t}.join();$0"
         ]
     },
     "jthread": {
         "prefix": "jthread",
         "description": "std::jthread auto-joining thread (C++20)",
         "body": [
-            "std::jthread ${1:t}([${2:&}]() {",
+            "std::jthread ${1:t}([${2:&}](std::stop_token ${3:stoken}) {",
             "    $0",
             "});"
         ]
@@ -1183,7 +1184,8 @@
         "prefix": "overloaded",
         "description": "Overloaded lambda pattern struct for std::visit with std::variant",
         "body": [
-            "template <class... Ts> struct overloaded : Ts... { using Ts::operator()...; };$0"
+            "template <class... Ts> struct overloaded : Ts... { using Ts::operator()...; };",
+            "template <class... Ts> overloaded(Ts...) -> overloaded<Ts...>;$0"
         ]
     }
 }

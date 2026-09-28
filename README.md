@@ -213,7 +213,7 @@
 | `timeit`     | Duration timing block with `std::chrono`           |
 | `overloaded` | Overloaded lambda visitor pattern for `std::visit` |
 
-## Recommend
+## Recommended Setup
 
 ### Problem
 
