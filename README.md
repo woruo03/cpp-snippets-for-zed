@@ -25,8 +25,8 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 
 | Prefix    | Description                                                         |
 | --------- | ------------------------------------------------------------------- |
-| `include` | `#include <...>`                                                    |
-| `incs`    | `#include <...>` with placeholder                                   |
+| `inc`     | `#include <...>` with placeholder                                   |
+| `incs`    | `#include <iostream>` system header                                 |
 | `incl`    | `#include "..."` local header                                       |
 | `once`    | `#pragma once` header guard                                         |
 | `guard`   | `#ifndef` / `#define` / `#endif` header guard (linked placeholders) |
@@ -39,16 +39,20 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 | --------- | ---------------------------------------------------------- |
 | `if`      | `if` statement                                             |
 | `ifelse`  | `if`-`else` block                                          |
-| `for`     | Indexed `for` loop (loop variable is a linked placeholder) |
+| `elif`    | `else if` statement                                        |
+| `ifc`     | `if constexpr` compile-time branch (C++17)                 |
+| `ifinit`  | `if (init; condition)` with initializer (C++17)            |
+| `for`     | Indexed `for` loop with linked index and `++i`             |
 | `forr`    | Reverse indexed `for` loop                                 |
 | `fore`    | Range-based `for` loop (`auto&`)                           |
 | `forec`   | Range-based `for` loop (`const auto&`)                     |
+| `foref`   | Range-based `for` loop with universal reference (`auto&&`) |
 | `while`   | `while` loop                                               |
 | `dowhile` | `do`-`while` loop                                          |
 | `switch`  | `switch` statement with `default`                          |
 | `case`    | Single `case` label with `break`                           |
 
-### Functions
+### Functions & Lambdas
 
 | Prefix | Description                           |
 | ------ | ------------------------------------- |
@@ -65,52 +69,84 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 | `enum`   | Scoped `enum class` definition                                 |
 | `ctor`   | Constructor with member-initializer list                       |
 | `dtor`   | Destructor                                                     |
+| `vdtor`  | Virtual destructor for base classes                            |
 | `cctor`  | Copy constructor                                               |
 | `mctor`  | Move constructor (`noexcept`)                                  |
 | `casgn`  | Copy assignment `operator=`                                    |
 | `masgn`  | Move assignment `operator=` (`noexcept`)                       |
+| `rule3`  | Rule of three — destructor, copy constructor, copy assignment  |
 | `rule5`  | Rule of five — all five special members explicitly `= default` |
 | `nocopy` | Non-copyable — `delete` copy constructor and copy assignment   |
-| `virt`   | `virtual override` method                                      |
-| `pv`     | Pure `virtual` method (`= 0`)                                  |
+| `nomove` | Non-movable — `delete` move constructor and move assignment     |
+| `virt`   | `virtual` method declaration in base class                     |
+| `ov`     | `override` method definition in derived class                  |
+| `pv`     | Pure `virtual` method declaration (`= 0`)                      |
 
-### Templates
+### Templates & Concepts
 
-| Prefix    | Description                |
-| --------- | -------------------------- |
-| `tfn`     | Template function          |
-| `tcls`    | Template class             |
-| `concept` | C++20 `concept` definition |
+| Prefix     | Description                        |
+| ---------- | ---------------------------------- |
+| `tfn`      | Template function                  |
+| `tcls`     | Template class                     |
+| `concept`  | C++20 `concept` definition         |
+| `requires` | C++20 `requires` expression clause |
 
 ### Smart Pointers
 
-| Prefix | Description                          |
-| ------ | ------------------------------------ |
-| `uptr` | `std::make_unique<T>(...)` → `auto`  |
-| `sptr` | `std::make_shared<T>(...)` → `auto`  |
-| `wptr` | `std::weak_ptr<T>` from a shared_ptr |
+| Prefix  | Description                                 |
+| ------- | ------------------------------------------- |
+| `uptr`  | `std::make_unique<T>(...)` → `auto`         |
+| `uptrd` | `std::unique_ptr<T>` declaration           |
+| `sptr`  | `std::make_shared<T>(...)` → `auto`         |
+| `sptrd` | `std::shared_ptr<T>` declaration           |
+| `wptr`  | `std::weak_ptr<T>` from a shared_ptr        |
 
-### STL Containers & Types
+### STL Containers & Views
 
-| Prefix | Description                |
-| ------ | -------------------------- |
-| `vec`  | `std::vector<T>`           |
-| `arr`  | `std::array<T, N>`         |
-| `umap` | `std::unordered_map<K, V>` |
-| `map`  | `std::map<K, V>`           |
-| `str`  | `std::string`              |
-| `opt`  | `std::optional<T>`         |
-| `vari` | `std::variant<...>`        |
-| `pair` | `std::pair<F, S>`          |
-| `tup`  | `std::tuple<...>`          |
+| Prefix   | Description                                    |
+| -------- | ---------------------------------------------- |
+| `vec`    | `std::vector<T>`                               |
+| `arr`    | `std::array<T, N>`                             |
+| `umap`   | `std::unordered_map<K, V>`                     |
+| `map`    | `std::map<K, V>`                               |
+| `uset`   | `std::unordered_set<T>`                        |
+| `set`    | `std::set<T>`                                  |
+| `queue`  | `std::queue<T>`                                |
+| `pqueue` | `std::priority_queue<T>`                       |
+| `stack`  | `std::stack<T>`                                |
+| `deque`  | `std::deque<T>`                                |
+| `str`    | `std::string`                                  |
+| `sv`     | `std::string_view` (C++17)                     |
+| `span`   | `std::span<T>` (C++20)                         |
+| `opt`    | `std::optional<T>`                             |
+| `vari`   | `std::variant<...>`                            |
+| `pair`   | `std::pair<F, S>`                              |
+| `tup`    | `std::tuple<...>`                              |
 
 ### I/O
 
-| Prefix | Description                           |
-| ------ | ------------------------------------- |
-| `cout` | `std::cout << ... << '\n'`            |
-| `cin`  | `std::cin >> ...`                     |
-| `cerr` | `std::cerr << ... << '\n'` for errors |
+| Prefix    | Description                                             |
+| --------- | ------------------------------------------------------- |
+| `cout`    | `std::cout << ... << '\n'`                              |
+| `cin`     | `std::cin >> ...`                                       |
+| `cerr`    | `std::cerr << ... << '\n'` for errors                   |
+| `getline` | `std::getline(std::cin, str)`                           |
+| `println` | `std::println("...", args)` formatted print (C++23)     |
+| `print`   | `std::print("...", args)` formatted print (C++23)       |
+| `fmt`     | `std::format("...", args)` string formatting (C++20)    |
+| `fastio`  | Fast I/O setup for competitive programming              |
+
+### Concurrency & Multi-threading
+
+| Prefix    | Description                                   |
+| --------- | --------------------------------------------- |
+| `thread`  | `std::thread` definition                      |
+| `jthread` | `std::jthread` auto-joining thread (C++20)    |
+| `lock`    | `std::scoped_lock` RAII multi-lock (C++17)    |
+| `ulock`   | `std::unique_lock<std::mutex>`                |
+| `mtx`     | `std::mutex` declaration                      |
+| `atomic`  | `std::atomic<T>` declaration                  |
+| `cv`      | `std::condition_variable` declaration         |
 
 ### Error Handling
 
@@ -133,6 +169,7 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 | --------- | ------------------------------------------ |
 | `cxpr`    | `constexpr` variable                       |
 | `cxfn`    | `constexpr` function                       |
+| `ceval`   | `consteval` immediate function (C++20)     |
 | `sassert` | `static_assert` with message               |
 | `assert`  | `assert(condition)` (requires `<cassert>`) |
 
@@ -143,15 +180,22 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 | `scast` | `static_cast<T>(expr)`                      |
 | `dcast` | `dynamic_cast<T*>(expr)` with nullptr check |
 | `rcast` | `reinterpret_cast<T>(expr)`                 |
+| `ccast` | `const_cast<T>(expr)`                       |
 
 ### Algorithms & Utilities
 
-| Prefix      | Description                                    |
-| ----------- | ---------------------------------------------- |
-| `sort`      | `std::sort` on a container                     |
-| `find`      | `std::find` with iterator check                |
-| `transform` | `std::transform` with a lambda                 |
-| `sbd`       | Structured binding `auto [a, b] = ...` — C++17 |
+| Prefix        | Description                                           |
+| ------------- | ----------------------------------------------------- |
+| `sort`        | `std::sort` on a container                            |
+| `rsort`       | `std::ranges::sort` on a container (C++20)            |
+| `find`        | `std::find` with iterator check                       |
+| `rfind`       | `std::ranges::find` with iterator check (C++20)       |
+| `transform`   | `std::transform` with a lambda and return             |
+| `sbd`         | Structured binding `auto [a, b] = ...` (C++17)        |
+| `move`        | `std::move(var)` cast                                 |
+| `fwd`         | `std::forward<T>(arg)` perfect forwarding             |
+| `timeit`      | Duration timing block with `std::chrono`              |
+| `overloaded`  | Overloaded lambda visitor pattern for `std::visit`    |
 
 ## Recommend
 

@@ -1,6 +1,6 @@
 id = "c++-snippets"
 name = "C++ Snippets"
-version = "0.0.1"
+version = "0.1.0"
 schema_version = 1
 authors = ["woruo03 <woruo03@gmail.com>"]
 description = "C++ snippets for the Zed IDE."
