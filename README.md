@@ -3,9 +3,9 @@
 ## Installation
 
 1. Clone this repo
-2. Go to the Extensions menu in the Zed IDE
-3. Click "Install Dev Extension"
-4. Select the folder you cloned
+1. Go to the Extensions menu in the Zed IDE
+1. Click "Install Dev Extension"
+1. Select the folder you cloned
 
 ## Available Snippets
 
