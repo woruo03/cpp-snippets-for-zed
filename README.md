@@ -25,9 +25,7 @@ git clone https://github.com/woruo03/cpp-snippets-for-zed
 
 | Prefix    | Description                                                         |
 | --------- | ------------------------------------------------------------------- |
-| `inc`     | `#include <...>` with placeholder                                   |
-| `include` | `#include <...>` with placeholder (alias)                           |
-| `incs`    | `#include <iostream>` system header                                 |
+| `inc`     | `#include <...>` system header with placeholder                     |
 | `incl`    | `#include "..."` local header                                       |
 | `once`    | `#pragma once` header guard                                         |
 | `guard`   | `#ifndef` / `#define` / `#endif` header guard (linked placeholders) |

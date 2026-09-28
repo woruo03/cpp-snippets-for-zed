@@ -19,23 +19,9 @@
             "}"
         ]
     },
-    "include header": {
+    "include system header": {
         "prefix": "inc",
         "description": "Include a system header with placeholder",
-        "body": [
-            "#include <${1:iostream}>$0"
-        ]
-    },
-    "include system header alias": {
-        "prefix": "include",
-        "description": "Include a system header with placeholder",
-        "body": [
-            "#include <${1:iostream}>$0"
-        ]
-    },
-    "include system header": {
-        "prefix": "incs",
-        "description": "Include a system C++ header",
         "body": [
             "#include <${1:iostream}>$0"
         ]
