@@ -2,12 +2,7 @@
 
 ## Installation
 
-1. Clone this repo:
-
-```shell
-git clone https://github.com/woruo03/cpp-snippets-for-zed
-```
-
+1. Clone this repo
 2. Go to the Extensions menu in the Zed IDE
 3. Click "Install Dev Extension"
 4. Select the folder you cloned
